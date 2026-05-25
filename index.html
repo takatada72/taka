@@ -5,94 +5,116 @@
 
 <meta charset="UTF-8">
 
-<title>PDF結合ツール</title>
-
-<script src="pdf-lib.min.js"></script>
-<script src="pdf.min.js"></script>
-<script src="sortable.min.js"></script>
+<title>PDF編集ツール</title>
 
 <style>
 
 body{
     font-family: Arial;
-    background:#f5f5f5;
-    padding:30px;
+    background:#f3f3f3;
+    padding:40px;
 }
 
 .container{
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    max-width:1300px;
+    max-width:1500px;
     margin:auto;
 }
 
-h1{
-    margin-bottom:20px;
+.title{
+
+    text-align:center;
+    font-size:64px;
+    font-weight:bold;
+    color:#ff66b3;
+
+    text-shadow:
+        2px 2px 0 #d94f96,
+        4px 4px 0 #b83f7d,
+        6px 6px 10px rgba(0,0,0,0.2);
+
+    margin-bottom:50px;
+
 }
 
-input[type=file]{
-    margin-bottom:20px;
+.tool-grid{
+
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:stretch;
+
 }
 
-button{
+.tool-card{
+
+    background:white;
+    width:280px;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+
+    text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    transition:0.2s;
+
+}
+
+.tool-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.tool-icon{
+
+    font-size:72px;
+    margin-bottom:20px;
+    color:#9fd8b5;
+    line-height:1.2;
+
+}
+
+.tool-card h2{
+
+    margin-top:0;
+    margin-bottom:15px;
+
+}
+
+.tool-card p{
+
+    color:#666;
+    min-height:60px;
+    line-height:1.7;
+
+}
+
+.tool-card a{
+
+    display:inline-block;
+
     background:#0078d4;
     color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:16px;
+
+    text-decoration:none;
+
+    padding:14px 20px;
+
+    border-radius:8px;
+
+    margin-top:auto;
+
 }
 
-button:hover{
+.tool-card a:hover{
+
     background:#005ea2;
-}
 
-.file-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-    margin-top:20px;
-}
-
-.file-card{
-    width:220px;
-    background:white;
-    border:1px solid #ccc;
-    border-radius:10px;
-    padding:12px;
-    text-align:center;
-    cursor:grab;
-    box-shadow:0 2px 6px rgba(0,0,0,0.08);
-}
-
-.file-card:active{
-    cursor:grabbing;
-}
-
-canvas{
-    width:180px;
-    border:1px solid #ddd;
-    margin-bottom:10px;
-}
-
-.preview-image{
-    width:180px;
-    border:1px solid #ddd;
-    margin-bottom:10px;
-}
-
-.file-name{
-    font-size:14px;
-    color:#666;
-    word-break:break-all;
-}
-
-.drag-text{
-    margin-top:8px;
-    color:#999;
-    font-size:12px;
 }
 
 </style>
@@ -103,278 +125,167 @@ canvas{
 
 <div class="container">
 
-<h1>PDF結合ツール</h1>
+<div class="title">
 
-<input
-    type="file"
-    id="fileInput"
-    multiple
-    accept=".pdf,.png,.jpg,.jpeg">
+PDF編集ツール
 
-<br>
+</div>
 
-<button id="mergeBtn">
+<div class="tool-grid">
 
-PDFを結合する
+<div class="tool-card">
 
-</button>
+<div class="tool-icon">
 
-<div
-    class="file-list"
-    id="fileList">
+🗎＋🖼＋🗎
+
+</div>
+
+<h2>PDF結合</h2>
+
+<p>
+
+PDF / JPG / PNG を
+1つのPDFへ結合します
+
+</p>
+
+<a href="merge.html">
+
+PDF結合を開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+🗑🗎
+
+</div>
+
+<h2>PDFページ削除</h2>
+
+<p>
+
+不要ページを選択して
+削除します
+
+</p>
+
+<a href="pdf-remove-pages.html">
+
+PDFページ削除を開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+🗎✂🗎
+
+</div>
+
+<h2>PDF分割</h2>
+
+<p>
+
+ページを選択して
+PDFを複数に分割します
+
+</p>
+
+<a href="pdf-split.html">
+
+PDF分割を開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+↻🗎
+
+</div>
+
+<h2>PDF回転</h2>
+
+<p>
+
+PDFページを
+回転します
+
+</p>
+
+<a href="pdf-rotate.html">
+
+PDF回転を開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+⇅🗎
+
+</div>
+
+<h2>PDF並び替え</h2>
+
+<p>
+
+PDFページ順を
+ドラッグで変更します
+
+</p>
+
+<a href="pdf-reorder.html">
+
+PDF並び替えを開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+🗜🗎
+
+</div>
+
+<h2>PDF軽量化</h2>
+
+<p>
+
+PDFサイズを
+軽量化します
+
+</p>
+
+<a href="pdf-compress.html">
+
+PDF軽量化を開く
+
+</a>
 
 </div>
 
 </div>
 
-<script>
-
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-    'pdf.worker.min.js';
-
-let uploadedFiles = [];
-
-document
-.getElementById('fileInput')
-.addEventListener('change', async (e) => {
-
-    try{
-
-        uploadedFiles =
-            Array.from(e.target.files);
-
-        const fileList =
-            document.getElementById('fileList');
-
-        fileList.innerHTML = '';
-
-        for(let i = 0; i < uploadedFiles.length; i++){
-
-            const file =
-                uploadedFiles[i];
-
-            const card =
-                document.createElement('div');
-
-            card.className =
-                'file-card';
-
-            card.dataset.index =
-                i;
-
-            if(file.type === 'application/pdf'){
-
-                const bytes =
-                    await file.arrayBuffer();
-
-                const loadingTask =
-                    pdfjsLib.getDocument({
-                        data: bytes
-                    });
-
-                const pdf =
-                    await loadingTask.promise;
-
-                const page =
-                    await pdf.getPage(1);
-
-                const viewport =
-                    page.getViewport({
-                        scale:0.35
-                    });
-
-                const canvas =
-                    document.createElement('canvas');
-
-                const context =
-                    canvas.getContext('2d');
-
-                canvas.height =
-                    viewport.height;
-
-                canvas.width =
-                    viewport.width;
-
-                await page.render({
-                    canvasContext:context,
-                    viewport:viewport
-                }).promise;
-
-                card.appendChild(canvas);
-
-            }else{
-
-                const img =
-                    document.createElement('img');
-
-                img.className =
-                    'preview-image';
-
-                img.src =
-                    URL.createObjectURL(file);
-
-                card.appendChild(img);
-
-            }
-
-            const fileName =
-                document.createElement('div');
-
-            fileName.className =
-                'file-name';
-
-            fileName.innerText =
-                file.name;
-
-            const dragText =
-                document.createElement('div');
-
-            dragText.className =
-                'drag-text';
-
-            dragText.innerText =
-                '⇅ ドラッグで並び替え';
-
-            card.appendChild(fileName);
-            card.appendChild(dragText);
-
-            fileList.appendChild(card);
-
-        }
-
-        new Sortable(fileList, {
-
-            animation:150
-
-        });
-
-    }catch(error){
-
-        console.error(error);
-
-        alert('ファイル読み込みエラー');
-
-    }
-
-});
-
-document
-.getElementById('mergeBtn')
-.addEventListener('click', async () => {
-
-    try{
-
-        const { PDFDocument } = PDFLib;
-
-        const mergedPdf =
-            await PDFDocument.create();
-
-        const cards =
-            document.querySelectorAll('.file-card');
-
-        for(const card of cards){
-
-            const index =
-                parseInt(card.dataset.index);
-
-            const file =
-                uploadedFiles[index];
-
-            if(file.type === 'application/pdf'){
-
-                const bytes =
-                    await file.arrayBuffer();
-
-                const pdf =
-                    await PDFDocument.load(bytes);
-
-                const copiedPages =
-                    await mergedPdf.copyPages(
-                        pdf,
-                        pdf.getPageIndices()
-                    );
-
-                copiedPages.forEach(page => {
-
-                    mergedPdf.addPage(page);
-
-                });
-
-            }else{
-
-                const imageBytes =
-                    await file.arrayBuffer();
-
-                let image;
-
-                if(file.type.includes('png')){
-
-                    image =
-                        await mergedPdf.embedPng(
-                            imageBytes
-                        );
-
-                }else{
-
-                    image =
-                        await mergedPdf.embedJpg(
-                            imageBytes
-                        );
-
-                }
-
-                const page =
-                    mergedPdf.addPage([
-                        image.width,
-                        image.height
-                    ]);
-
-                page.drawImage(image, {
-
-                    x:0,
-                    y:0,
-                    width:image.width,
-                    height:image.height
-
-                });
-
-            }
-
-        }
-
-        const mergedBytes =
-            await mergedPdf.save();
-
-        const blob =
-            new Blob(
-                [mergedBytes],
-                { type:'application/pdf' }
-            );
-
-        const link =
-            document.createElement('a');
-
-        link.href =
-            URL.createObjectURL(blob);
-
-        link.download =
-            'merged.pdf';
-
-        link.click();
-
-        alert('PDF結合完了');
-
-    }catch(error){
-
-        console.error(error);
-
-        alert('PDF結合エラー');
-
-    }
-
-});
-
-</script>
+</div>
 
 </body>
 </html>
