@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 
-<title>PDF翻訳プレビュー</title>
+<title>PDF簡易翻訳プレビュー</title>
 
 <script src="pdf.min.js"></script>
 
@@ -23,6 +23,18 @@ body{
     border-radius:10px;
     max-width:1200px;
     margin:auto;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.translate-note{
+
+    font-size:18px;
+    color:#666;
+    margin-left:10px;
+
 }
 
 button{
@@ -62,6 +74,13 @@ button:hover{
 
 }
 
+.file-area{
+
+    margin-top:20px;
+    margin-bottom:20px;
+
+}
+
 </style>
 
 </head>
@@ -73,18 +92,23 @@ button:hover{
 <h1>
 
 PDF簡易翻訳プレビュー
-<span style="font-size:18px;color:#666;">
+
+<span class="translate-note">
 
 （右クリック → 日本語に翻訳）
 
 </span>
+
+</h1>
+
+<div class="file-area">
 
 <input
     type="file"
     id="pdfFile"
     accept=".pdf">
 
-<br><br>
+</div>
 
 <button id="extractBtn">
 
@@ -177,7 +201,7 @@ document
         }
 
         alert(
-            'Chrome右クリック → 日本語へ翻訳'
+            '右クリック → 日本語に翻訳'
         );
 
     }catch(error){
