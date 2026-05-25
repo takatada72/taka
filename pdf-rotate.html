@@ -52,15 +52,25 @@ button:hover{
     border:1px solid #ccc;
     padding:10px;
     border-radius:8px;
-    width:180px;
+    width:200px;
     background:white;
     text-align:center;
 }
 
+.canvas-wrapper{
+    width:160px;
+    height:220px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
 canvas{
     border:1px solid #ddd;
-    margin-bottom:10px;
     width:160px;
+    transition:transform 0.3s;
 }
 
 .rotate-info{
@@ -165,6 +175,9 @@ document
             const canvas =
                 document.createElement('canvas');
 
+            canvas.id =
+                `canvas-${i}`;
+
             const context =
                 canvas.getContext('2d');
 
@@ -178,6 +191,14 @@ document
                 canvasContext:context,
                 viewport:viewport
             }).promise;
+
+            const wrapper =
+                document.createElement('div');
+
+            wrapper.className =
+                'canvas-wrapper';
+
+            wrapper.appendChild(canvas);
 
             const div =
                 document.createElement('div');
@@ -205,7 +226,7 @@ document
                 </div>
             `;
 
-            div.prepend(canvas);
+            div.prepend(wrapper);
 
             pageList.appendChild(div);
 
@@ -225,7 +246,7 @@ function rotateLeft(pageNum){
 
     pageRotations[pageNum] -= 90;
 
-    updateRotationInfo(pageNum);
+    applyRotation(pageNum);
 
 }
 
@@ -233,16 +254,27 @@ function rotateRight(pageNum){
 
     pageRotations[pageNum] += 90;
 
-    updateRotationInfo(pageNum);
+    applyRotation(pageNum);
 
 }
 
-function updateRotationInfo(pageNum){
+function applyRotation(pageNum){
+
+    const rotation =
+        pageRotations[pageNum];
 
     document.getElementById(
         `rotate-info-${pageNum}`
     ).innerText =
-        `回転: ${pageRotations[pageNum]}°`;
+        `回転: ${rotation}°`;
+
+    const canvas =
+        document.getElementById(
+            `canvas-${pageNum}`
+        );
+
+    canvas.style.transform =
+        `rotate(${rotation}deg)`;
 
 }
 
@@ -254,8 +286,16 @@ document
 
         const { degrees } = PDFLib;
 
+        const originalBytes =
+            await pdfDocLib.save();
+
+        const newPdf =
+            await PDFLib.PDFDocument.load(
+                originalBytes
+            );
+
         const pages =
-            pdfDocLib.getPages();
+            newPdf.getPages();
 
         pages.forEach((page, index) => {
 
@@ -269,7 +309,7 @@ document
         });
 
         const pdfBytesNew =
-            await pdfDocLib.save();
+            await newPdf.save();
 
         const blob =
             new Blob(
