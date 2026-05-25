@@ -220,7 +220,10 @@ document
         const { PDFDocument } = PDFLib;
 
         const srcPdf =
-            await PDFDocument.load(pdfBytes);
+    await PDFDocument.load(
+        pdfBytes.buffer
+    );
+
 
         const splitPoints =
             [1, ...checked, pageCount + 1];
