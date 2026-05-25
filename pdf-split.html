@@ -117,8 +117,11 @@ document
             return;
         }
 
-        pdfBytes =
-            await file.arrayBuffer();
+const originalBytes =
+    await file.arrayBuffer();
+
+pdfBytes =
+    originalBytes.slice(0);
 
         const loadingTask =
             pdfjsLib.getDocument({
