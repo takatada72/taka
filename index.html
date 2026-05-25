@@ -5,73 +5,118 @@
 
 <meta charset="UTF-8">
 
-<title>PDF TOOL PORTAL</title>
+<title>PDF編集ツール</title>
 
 <style>
 
 body{
     font-family: Arial;
-    background:#f5f5f5;
+    background:#f3f3f3;
     padding:40px;
 }
 
 .container{
-    max-width:1300px;
+    max-width:1400px;
     margin:auto;
 }
 
-h1{
-    margin-bottom:40px;
+.title{
+
     text-align:center;
+    font-size:64px;
+    font-weight:bold;
+    color:#ff66b3;
+
+    text-shadow:
+        2px 2px 0 #d94f96,
+        4px 4px 0 #b83f7d,
+        6px 6px 10px rgba(0,0,0,0.2);
+
+    margin-bottom:50px;
+
 }
 
 .tool-grid{
+
     display:flex;
     gap:30px;
     flex-wrap:wrap;
     justify-content:center;
+    align-items:stretch;
+
 }
 
 .tool-card{
+
     background:white;
     width:280px;
     padding:25px;
-    border-radius:14px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+
     text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
     transition:0.2s;
+
 }
 
 .tool-card:hover{
-    transform:translateY(-4px);
+
+    transform:translateY(-6px);
+
 }
 
 .tool-icon{
-    font-size:70px;
+
+    font-size:72px;
     margin-bottom:20px;
+
+    filter:hue-rotate(70deg)
+           saturate(0.5)
+           brightness(1.1);
+
 }
 
 .tool-card h2{
+
     margin-top:0;
+    margin-bottom:15px;
+
 }
 
 .tool-card p{
+
     color:#666;
-    min-height:50px;
+    min-height:60px;
+    line-height:1.7;
+
 }
 
 .tool-card a{
+
     display:inline-block;
-    margin-top:15px;
+
     background:#0078d4;
     color:white;
+
     text-decoration:none;
-    padding:12px 18px;
-    border-radius:6px;
+
+    padding:14px 20px;
+
+    border-radius:8px;
+
+    margin-top:auto;
+
 }
 
 .tool-card a:hover{
+
     background:#005ea2;
+
 }
 
 </style>
@@ -82,7 +127,11 @@ h1{
 
 <div class="container">
 
-<h1>PDF TOOL PORTAL</h1>
+<div class="title">
+
+PDF編集ツール
+
+</div>
 
 <div class="tool-grid">
 
@@ -97,8 +146,10 @@ h1{
 <h2>PDF結合</h2>
 
 <p>
+
 複数のPDFファイルを
 1つに結合します
+
 </p>
 
 <a href="merge.html">
@@ -120,8 +171,10 @@ PDF結合を開く
 <h2>PDFページ削除</h2>
 
 <p>
+
 不要ページを選択して
 削除します
+
 </p>
 
 <a href="pdf-remove-pages.html">
@@ -143,8 +196,10 @@ PDFページ削除を開く
 <h2>PDF分割</h2>
 
 <p>
+
 ページを選択して
 PDFを複数に分割します
+
 </p>
 
 <a href="pdf-split.html">
@@ -166,8 +221,10 @@ PDF分割を開く
 <h2>PDF回転</h2>
 
 <p>
+
 PDFページを
 回転します
+
 </p>
 
 <a href="pdf-rotate.html">
@@ -183,4 +240,5 @@ PDF回転を開く
 </div>
 
 </body>
+
 </html>
