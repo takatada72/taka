@@ -16,26 +16,39 @@ body{
 }
 
 .container{
-    max-width:1000px;
+    max-width:1300px;
     margin:auto;
 }
 
 h1{
-    margin-bottom:30px;
+    margin-bottom:40px;
+    text-align:center;
 }
 
 .tool-grid{
     display:flex;
     gap:30px;
     flex-wrap:wrap;
+    justify-content:center;
 }
 
 .tool-card{
     background:white;
     width:280px;
     padding:25px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    text-align:center;
+    transition:0.2s;
+}
+
+.tool-card:hover{
+    transform:translateY(-4px);
+}
+
+.tool-icon{
+    font-size:70px;
+    margin-bottom:20px;
 }
 
 .tool-card h2{
@@ -44,6 +57,7 @@ h1{
 
 .tool-card p{
     color:#666;
+    min-height:50px;
 }
 
 .tool-card a{
@@ -74,6 +88,12 @@ h1{
 
 <div class="tool-card">
 
+<div class="tool-icon">
+
+📄➕📄
+
+</div>
+
 <h2>PDF結合</h2>
 
 <p>
@@ -91,6 +111,12 @@ PDF結合を開く
 
 <div class="tool-card">
 
+<div class="tool-icon">
+
+🗑📄
+
+</div>
+
 <h2>PDFページ削除</h2>
 
 <p>
@@ -106,10 +132,55 @@ PDFページ削除を開く
 
 </div>
 
+<div class="tool-card">
+
+<div class="tool-icon">
+
+📄✂📄
+
+</div>
+
+<h2>PDF分割</h2>
+
+<p>
+ページを選択して
+PDFを複数に分割します
+</p>
+
+<a href="pdf-split.html">
+
+PDF分割を開く
+
+</a>
+
+</div>
+
+<div class="tool-card">
+
+<div class="tool-icon">
+
+↻📄
+
+</div>
+
+<h2>PDF回転</h2>
+
+<p>
+PDFページを
+回転します
+</p>
+
+<a href="pdf-rotate.html">
+
+PDF回転を開く
+
+</a>
+
+</div>
+
 </div>
 
 </div>
 
 </body>
-
 </html>
