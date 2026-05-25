@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>PDFページ削除ツール</title>
+
+<script src="pdf-lib.min.js"></script>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    max-width:700px;
+    margin:auto;
+}
+
+button{
+    background:#0078d4;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#005ea2;
+}
+
+input{
+    padding:8px;
+    width:300px;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PDFページ削除ツール</h1>
+
+<input
+    type="file"
+    id="pdfFile"
+    accept=".pdf">
+
+<br><br>
+
+<div>
+
+削除ページ番号（カンマ区切り）
+
+<br>
+
+<input
+    type="text"
+    id="removePages"
+    placeholder="例: 3,5,8">
+
+</div>
+
+<br>
+
+<button id="removeBtn">
+
+PDFページ削除
+
+</button>
+
+</div>
+
+<script>
+
+document
+.getElementById('removeBtn')
+.addEventListener('click', async () => {
+
+    try{
+
+        const { PDFDocument } = PDFLib;
+
+        const fileInput =
+            document.getElementById('pdfFile');
+
+        const file =
+            fileInput.files[0];
+
+        if(!file){
+
+            alert('PDFを選択してください');
+
+            return;
+        }
+
+        const removeText =
+            document
+            .getElementById('removePages')
+            .value;
+
+        if(!removeText){
+
+            alert('削除ページを入力してください');
+
+            return;
+        }
+
+        const removePages =
+            removeText
+            .split(',')
+            .map(n => parseInt(n.trim()) - 1)
+            .sort((a,b) => b - a);
+
+        const bytes =
+            await file.arrayBuffer();
+
+        const pdfDoc =
+            await PDFDocument.load(bytes);
+
+        removePages.forEach(pageIndex => {
+
+            if(
+                pageIndex >= 0 &&
+                pageIndex < pdfDoc.getPageCount()
+            ){
+
+                pdfDoc.removePage(pageIndex);
+
+            }
+
+        });
+
+        const pdfBytes =
+            await pdfDoc.save();
+
+        const blob =
+            new Blob(
+                [pdfBytes],
+                { type:'application/pdf' }
+            );
+
+        const link =
+            document.createElement('a');
+
+        link.href =
+            URL.createObjectURL(blob);
+
+        link.download =
+            'removed-pages.pdf';
+
+        link.click();
+
+        alert('ページ削除完了');
+
+    }catch(error){
+
+        console.error(error);
+
+        alert('エラーが発生しました');
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
