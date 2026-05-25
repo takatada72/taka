@@ -121,7 +121,8 @@ const originalBytes =
     await file.arrayBuffer();
 
 pdfBytes =
-    originalBytes.slice(0);
+    new Uint8Array(originalBytes);
+
 
         const loadingTask =
             pdfjsLib.getDocument({
