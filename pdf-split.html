@@ -215,15 +215,16 @@ document
         const srcPdf =
             await PDFDocument.load(pdfBytes);
 
-        let start = 0;
-
         const splitPoints =
-            [...checked, pageCount + 1];
+            [1, ...checked, pageCount + 1];
 
-        for(let i = 0; i < splitPoints.length; i++){
+        for(let i = 0; i < splitPoints.length - 1; i++){
+
+            const start =
+                splitPoints[i];
 
             const end =
-                splitPoints[i] - 1;
+                splitPoints[i + 1];
 
             const newPdf =
                 await PDFDocument.create();
@@ -231,7 +232,7 @@ document
             const pageIndexes =
                 [];
 
-            for(let p = start; p < end; p++){
+            for(let p = start - 1; p < end - 1; p++){
 
                 pageIndexes.push(p);
 
@@ -268,8 +269,6 @@ document
                 `split-${i + 1}.pdf`;
 
             link.click();
-
-            start = end;
 
         }
 
