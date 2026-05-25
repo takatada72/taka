@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>PDF結合ツール</title>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    max-width:700px;
+    margin:auto;
+}
+
+button{
+    background:#0078d4;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#005ea2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PDF結合ツール</h1>
+
+<input type="file" id="pdfFiles" multiple accept=".pdf">
+
+<br><br>
+
+<button id="mergeBtn">
+PDFを結合する
+</button>
+
+</div>
+
+<script>
+
+document
+.getElementById('mergeBtn')
+.addEventListener('click', async () => {
+
+    try{
+
+        const { PDFDocument } = PDFLib;
+
+        const input =
+            document.getElementById('pdfFiles');
+
+        const files = input.files;
+
+        if(files.length < 2){
+
+            alert('PDFを2つ以上選択してください');
+
+            return;
+        }
+
+        const mergedPdf =
+            await PDFDocument.create();
+
+        for(const file of files){
+
+            const bytes =
+                await file.arrayBuffer();
+
+            const pdf =
+                await PDFDocument.load(bytes);
+
+            const pages =
+                await mergedPdf.copyPages(
+                    pdf,
+                    pdf.getPageIndices()
+                );
+
+            pages.forEach(page => {
+
+                mergedPdf.addPage(page);
+
+            });
+        }
+
+        const mergedBytes =
+            await mergedPdf.save();
+
+        const blob =
+            new Blob(
+                [mergedBytes],
+                { type:'application/pdf' }
+            );
+
+        const link =
+            document.createElement('a');
+
+        link.href =
+            URL.createObjectURL(blob);
+
+        link.download =
+            'merged.pdf';
+
+        link.click();
+
+        alert('PDF結合完了');
+
+    }catch(error){
+
+        console.error(error);
+
+        alert('エラーが発生しました');
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
