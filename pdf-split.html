@@ -227,7 +227,13 @@ document
                 splitPoints[i];
 
             const end =
-                splitPoints[i + 1];
+                splitPoints[i + 1] - 1;
+
+            if(start > end){
+
+                continue;
+
+            }
 
             const newPdf =
                 await PDFDocument.create();
@@ -237,11 +243,17 @@ document
 
             for(
                 let p = start - 1;
-                p <= end - 2;
+                p <= end - 1;
                 p++
             ){
 
                 pageIndexes.push(p);
+
+            }
+
+            if(pageIndexes.length === 0){
+
+                continue;
 
             }
 
