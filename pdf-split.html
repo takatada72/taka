@@ -100,7 +100,7 @@ canvas{
 pdfjsLib.GlobalWorkerOptions.workerSrc =
     'pdf.worker.min.js';
 
-let pdfBytes;
+let fileObject;
 let pageCount;
 
 document
@@ -109,24 +109,20 @@ document
 
     try{
 
-        const file =
+        fileObject =
             e.target.files[0];
 
-        if(!file){
+        if(!fileObject){
 
             return;
         }
 
-const originalBytes =
-    await file.arrayBuffer();
-
-pdfBytes =
-    new Uint8Array(originalBytes);
-
+        const bytes =
+            await fileObject.arrayBuffer();
 
         const loadingTask =
             pdfjsLib.getDocument({
-                data: pdfBytes
+                data: bytes
             });
 
         const pdf =
@@ -217,13 +213,13 @@ document
             return;
         }
 
+        const originalBytes =
+            await fileObject.arrayBuffer();
+
         const { PDFDocument } = PDFLib;
 
         const srcPdf =
-    await PDFDocument.load(
-        pdfBytes.buffer
-    );
-
+            await PDFDocument.load(originalBytes);
 
         const splitPoints =
             [1, ...checked, pageCount + 1];
