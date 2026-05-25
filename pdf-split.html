@@ -97,6 +97,9 @@ canvas{
 
 <script>
 
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'pdf.worker.min.js';
+
 let pdfBytes;
 let pageCount;
 
@@ -232,7 +235,11 @@ document
             const pageIndexes =
                 [];
 
-            for(let p = start - 1; p < end - 1; p++){
+            for(
+                let p = start - 1;
+                p <= end - 2;
+                p++
+            ){
 
                 pageIndexes.push(p);
 
