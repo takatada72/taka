@@ -1,316 +1,207 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>PDF編集ツール</title>
-
 <style>
-
 body{
     font-family: Arial;
     background:#f3f3f3;
     padding:40px;
 }
-
 .container{
     max-width:1600px;
     margin:auto;
 }
-
 .title{
-
     text-align:center;
     font-size:64px;
     font-weight:bold;
     color:#ff66b3;
-
     text-shadow:
         2px 2px 0 #d94f96,
         4px 4px 0 #b83f7d,
         6px 6px 10px rgba(0,0,0,0.2);
-
     margin-bottom:50px;
-
 }
-
 .tool-grid{
-
     display:flex;
     gap:30px;
     flex-wrap:wrap;
     justify-content:center;
     align-items:stretch;
-
 }
-
 .tool-card{
-
     background:white;
     width:280px;
     padding:25px;
     border-radius:16px;
     box-shadow:0 4px 12px rgba(0,0,0,0.12);
-
     text-align:center;
-
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-
     transition:0.2s;
-
 }
-
 .tool-card:hover{
-
     transform:translateY(-6px);
-
 }
-
 .tool-icon{
-
     font-size:72px;
     margin-bottom:20px;
     color:#9fd8b5;
     line-height:1.2;
-
 }
-
 .tool-card h2{
-
     margin-top:0;
     margin-bottom:15px;
-
 }
-
 .tool-card p{
-
     color:#666;
     min-height:60px;
     line-height:1.7;
-
 }
-
 .tool-card a{
-
     display:inline-block;
-
     background:#0078d4;
     color:white;
-
     text-decoration:none;
-
     padding:14px 20px;
-
     border-radius:8px;
-
     margin-top:auto;
-
 }
-
 .tool-card a:hover{
-
     background:#005ea2;
-
 }
-
+.view-counter{
+    text-align:center;
+    color:#888;
+    font-size:14px;
+    margin-top:40px;
+}
 </style>
-
 </head>
-
 <body>
-
 <div class="container">
-
 <div class="title">
-
 PDF編集ツール
-
 </div>
-
 <div class="tool-grid">
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 🗎＋🖼＋🗎
-
 </div>
-
 <h2>PDF結合</h2>
-
 <p>
-
 PDF / JPG / PNG を
 1つのPDFへ結合します
-
 </p>
-
 <a href="merge.html">
-
 PDF結合を開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 🗑🗎
-
 </div>
-
 <h2>PDFページ削除</h2>
-
 <p>
-
 不要ページを選択して
 削除します
-
 </p>
-
 <a href="pdf-remove-pages.html">
-
 PDFページ削除を開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 🗎✂🗎
-
 </div>
-
 <h2>PDF分割</h2>
-
 <p>
-
 ページを選択して
 PDFを複数に分割します
-
 </p>
-
 <a href="pdf-split.html">
-
 PDF分割を開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 ↻🗎
-
 </div>
-
 <h2>PDF回転</h2>
-
 <p>
-
 PDFページを
 回転します
-
 </p>
-
 <a href="pdf-rotate.html">
-
 PDF回転を開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 ⇅🗎
-
 </div>
-
 <h2>PDF並び替え</h2>
-
 <p>
-
 PDFページ順を
 ドラッグで変更します
-
 </p>
-
 <a href="pdf-reorder.html">
-
 PDF並び替えを開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 🗜🗎
-
 </div>
-
 <h2>PDF軽量化</h2>
-
 <p>
-
 PDFサイズを
 軽量化します
-
 </p>
-
 <a href="pdf-compress.html">
-
 PDF軽量化を開く
-
 </a>
-
 </div>
-
 <div class="tool-card">
-
 <div class="tool-icon">
-
 🌐🗎
-
 </div>
-
 <h2>PDF簡易翻訳プレビュー</h2>
-
 <p>
-
 PDF内テキストを抽出し
 ブラウザ翻訳で日本語表示します
-
 </p>
-
 <a href="pdf-translate.html">
-
 PDF翻訳を開く
-
 </a>
-
 </div>
-
 </div>
-
+<p class="view-counter">閲覧回数: <strong id="viewCount">読み込み中…</strong> 回</p>
 </div>
-
+<script>
+var COUNTER_URL = 'https://abacus.jasoncameron.dev/hit/takatada72-taka/page-views';
+var COUNTER_GET_URL = 'https://abacus.jasoncameron.dev/get/takatada72-taka/page-views';
+function showViewCount(value) {
+  document.getElementById('viewCount').textContent = value;
+}
+fetch(COUNTER_URL)
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (typeof d.value === 'number') { showViewCount(d.value); }
+    else { showViewCount('-'); }
+  })
+  .catch(function() {
+    fetch(COUNTER_GET_URL)
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (typeof d.value === 'number') { showViewCount(d.value); }
+        else { showViewCount(0); }
+      })
+      .catch(function() { showViewCount('-'); });
+  });
+</script>
 </body>
 </html>
